@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duncan.blog.dao.UserVoMapper">
+    <resultMap type="com.duncan.blog.model.vo.UserVo" id="baseResultMap">
+        <id column="uid" javaType="INTEGER" property="uid" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="home_url" jdbcType="VARCHAR" property="homeUrl" />
+        <result column="screen_name" jdbcType="VARCHAR" property="screenName" />
+        <result column="created" jdbcType="INTEGER" property="created" />
+        <result column="actived" jdbcType="INTEGER" property="actived" />
+        <result column="logged" jdbcType="INTEGER" property="logged" />
+        <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        username, password, email, home_url, screen_name, created, activated, logged, group_name
+    </sql>
+    
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="baseResultMap">
+        select 
+        <include refid="Base_Column_List"></include>
+        from t_users
+        where uid = #{uid, jdbcType=INTEGER}
+    </select>
+</mapper>
