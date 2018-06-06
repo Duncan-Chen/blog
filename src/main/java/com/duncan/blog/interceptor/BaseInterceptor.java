@@ -11,9 +11,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.duncan.blog.constant.WebConst;
+import com.duncan.blog.dto.Types;
 import com.duncan.blog.model.vo.UserVo;
 import com.duncan.blog.service.IUserService;
+import com.duncan.blog.utils.Commons;
 import com.duncan.blog.utils.IPKit;
+import com.duncan.blog.utils.MapCache;
 import com.duncan.blog.utils.MyUUID;
 import com.duncan.blog.utils.TaleUtils;
 
@@ -25,6 +28,11 @@ public class BaseInterceptor implements HandlerInterceptor {
 	
 	@Resource
 	private IUserService userService;
+	
+	private MapCache cache = MapCache.single();
+	
+	@Resource
+	private Commons commons;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp,
@@ -50,6 +58,8 @@ public class BaseInterceptor implements HandlerInterceptor {
 		
 		if (req.getMethod().equals("GET")) {
 			String csrf_token = MyUUID.UU64();
+			cache.hset(Types.CSRF_TOKEN.getType(), csrf_token, uri, 30 * 60);
+			req.setAttribute("_csrf_token", csrf_token);
 		}
 		
 		return true;
@@ -58,7 +68,7 @@ public class BaseInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest req, HttpServletResponse resp,
 			Object obj, ModelAndView model) throws Exception {
-		
+		req.setAttribute("commons", commons);
 	}
 
 	@Override

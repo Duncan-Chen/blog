@@ -152,4 +152,8 @@ public class Commons {
 		return EmojiParser.parseToUnicode(value);
 	}
 	
+	public static String random(int max, String imgSuffix) {
+		return MyUUID.random(1, max) + imgSuffix;
+	}
+	
 }
