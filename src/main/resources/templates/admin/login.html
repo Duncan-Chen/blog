@@ -79,8 +79,12 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="@{//cdn.bootcss.com/jquery/2.2.3/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{//cdn.bootcss.com/jquery/2.2.3/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.js}"></script>
+	<script type="text/javascript" th:src="@{/admin/js/base.js}"></script>
 	<script type="text/javascript">
+	/* <![CDATA[ */
 		var tale = new $.tale();
 		function checkForm() {
 			tale.post({
@@ -88,11 +92,14 @@
 				data: $('#loginForm').serialize(),
 				success: function(result) {
 					if (result && result.success) {
-						window.location.href = "/admin/index"
+						window.location.href = "/admin/index";
+					} else {
+						tale.alertError(result.msg || "登录失败");
 					}
 				}
 			});
 		}
+	/* ]]> */
 	</script>
 </body>
 </html>

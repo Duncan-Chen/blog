@@ -22,5 +22,4 @@ public class UserServiceTest {
 		UserVo user = this.userService.queryUserById(1);
 		System.out.println(user.getUsername());
 	}
-	
 }

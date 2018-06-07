@@ -13,6 +13,36 @@
         <result column="logged" jdbcType="INTEGER" property="logged" />
         <result column="group_name" jdbcType="VARCHAR" property="groupName" />
     </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefixOverrides="and">
+                        <foreach collection="criteria.criterions" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" separator="," 
+                                        open="(" close=")">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
     
     <sql id="Base_Column_List">
         username, password, email, home_url, screen_name, created, activated, logged, group_name
@@ -23,5 +53,33 @@
         <include refid="Base_Column_List"></include>
         from t_users
         where uid = #{uid, jdbcType=INTEGER}
+    </select>
+    <select id="countByExample" parameterType="com.duncan.blog.model.vo.UserVoExample" resultType="java.lang.Long">
+        select count(*) from t_users
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"></include>
+        </if>
+    </select>
+    <select id="selectByExample" parameterType="com.duncan.blog.model.vo.UserVoExample" resultMap="baseResultMap">
+        select 
+        <if test="distinct">
+            distinct 
+        </if>
+        <include refid="Base_Column_List"></include>
+        from t_users 
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"></include>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause} 
+        </if>
+        <if test="limit != null">
+            <if test="offset != null">
+                limit ${offset}, ${limit}
+            </if>
+            <if test="limit == null">
+                limit ${limit}
+            </if>
+        </if>
     </select>
 </mapper>

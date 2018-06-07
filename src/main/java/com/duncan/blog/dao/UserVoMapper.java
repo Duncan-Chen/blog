@@ -20,7 +20,7 @@ public interface UserVoMapper {
 	
 	int insertSelective(UserVo record);
 	
-	List<UserVo> selectByUserVoExample(UserVoExample example);
+	List<UserVo> selectByExample(UserVoExample example);
 	
 	UserVo selectByPrimaryKey(Integer uid);
 	

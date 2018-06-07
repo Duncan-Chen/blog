@@ -1,10 +1,13 @@
 package com.duncan.blog.utils;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
@@ -48,6 +51,20 @@ public class TaleUtils {
 		}
 		return (UserVo) session.getAttribute(WebConst.LOGIN_SESSION_KEY);
 	}
+	
+	public static void setCookie(HttpServletResponse resp, Integer uid) {
+		try {
+			String enAes = Tools.enAes(uid.toString(), WebConst.AES_SALT);
+			Cookie cookie = new Cookie(WebConst.USER_IN_COOKIE, enAes);
+			boolean isSSL = false;
+			cookie.setPath("/");
+			cookie.setSecure(isSSL);
+			cookie.setMaxAge(30 * 60);
+			resp.addCookie(cookie);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * 获取cookie中用户的id
@@ -80,6 +97,33 @@ public class TaleUtils {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * md5加密
+	 * @param source
+	 * @return
+	 */
+	public static String md5Encode(String source) {
+		if (StringUtils.isBlank(source)) {
+			return null;
+		}
+		MessageDigest digest = null;
+		try {
+			digest = MessageDigest.getInstance("md5");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		byte[] encodes = digest.digest(source.getBytes());
+		StringBuilder hexString = new StringBuilder();
+		for (byte encode : encodes) {
+			String hex = Integer.toHexString(0xff & encode);
+			if (hex.length() == 1) {
+				hexString.append("0");
+			}
+			hexString.append(hex);
+		}
+		return hexString.toString();
 	}
 
 }
