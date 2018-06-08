@@ -44,7 +44,7 @@ $.tale.prototype.alertBox = function(options) {
  */
 $.tale.prototype.post = function(options) {
 	var self = this;
-	$.post({
+	$.ajax({
 		url: options.url,
 		data: options.data || {},
 		type: 'post',
@@ -57,10 +57,10 @@ $.tale.prototype.post = function(options) {
 		error: function() {
 			
 		}
-	})
+	});
 };
 
-$.tale.protptype.showLoading = function() {
+$.tale.prototype.showLoading = function() {
 	if ($('#tale-loading').length == 0) {
 		$('body').append('<div id="tale-loading"></div>');
 	}

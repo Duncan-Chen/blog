@@ -48,7 +48,7 @@
 				<h3 class="text-center m-t-10">Login Blog</h3>
 			</div>
 			<div class="panel-body">
-				<form class="form-horizontal m-t-20" id="loginForm" method="post" onsubmit="return checkFrom();">
+				<form class="form-horizontal m-t-20" id="loginForm" method="post" onsubmit="return checkForm()">
 					<div class="form-group">
 						<div class="col-xs-12">
 							<input class="input-lg input-border" name="username" type="text" required="required" 
@@ -98,6 +98,7 @@
 					}
 				}
 			});
+			return false;
 		}
 	/* ]]> */
 	</script>

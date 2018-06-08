@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerFragment(title,active)">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maxinum-scale=1.0, user-scale=1.0" />
+<meta name="author" content="Coderthemes" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="shortcut icon" th:href="@{/admin/images/favicon.png}" />
+<title><th:block th:text="${title != null ? title : '博客后台'} + '-Blog'"></th:block></title>
+<link rel="stylesheet" th:href="@{//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css}" />
+<link th:href="@{//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.css}" rel="stylesheet" />
+<link rel="stylesheet" th:href="@{/admin/css/style.min.css}" type="text/css" />
+</head>
+<div th:fragment="header-body">
+	<div class="topbar">
+		<div class="topbar-left">
+			<div>
+				<div>
+					<a>
+						<img alt="" src="" />
+					</a>
+				</div>
+				<div>
+					<span></span>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div>
+				<div>
+					<div>
+						<button></button>
+						<span></span>
+					</div>
+					<ul>
+						<li>
+							<a>
+								<img alt="" src="" />
+							</a>
+							<ul>
+								<li>
+									<a><i></i></a>
+								</li>
+								<li>
+									<a><i></i></a>
+								</li>
+								<li>
+									<a><i></i></a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<div>
+			<div>
+				<ul>
+					<li><a><i></i><span></span></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

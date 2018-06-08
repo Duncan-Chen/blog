@@ -45,7 +45,7 @@
     </sql>
     
     <sql id="Base_Column_List">
-        username, password, email, home_url, screen_name, created, activated, logged, group_name
+       uid, username, password, email, home_url, screen_name, created, activated, logged, group_name
     </sql>
     
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="baseResultMap">
