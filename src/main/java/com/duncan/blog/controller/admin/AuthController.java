@@ -1,7 +1,11 @@
 package com.duncan.blog.controller.admin;
 
+import java.io.IOException;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -72,6 +76,22 @@ public class AuthController extends BaseController {
 			return RestResponseBo.fail(msg);
 		}
 		return RestResponseBo.ok();
+	}
+	
+	@RequestMapping("/logout")
+	public void logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		session.removeAttribute(WebConst.LOGIN_SESSION_KEY);
+		Cookie cookie = new Cookie(WebConst.USER_IN_COOKIE, "");
+		cookie.setPath("/");
+		cookie.setValue(null);
+		cookie.setMaxAge(0);
+		response.addCookie(cookie);
+		try {
+			response.sendRedirect("/admin/login");
+		} catch (IOException e) {
+			e.printStackTrace();
+			LOGGER.error("注销失败", e);
+		}
 	}
 	
 }

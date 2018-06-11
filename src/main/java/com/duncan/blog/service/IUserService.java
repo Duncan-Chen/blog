@@ -18,5 +18,11 @@ public interface IUserService {
 	 * @return
 	 */
 	UserVo login(String username, String password);
+
+	/**
+	 * 根据主键更新用户信息
+	 * @param user
+	 */
+	void updateByUid(UserVo user);
 	
 }

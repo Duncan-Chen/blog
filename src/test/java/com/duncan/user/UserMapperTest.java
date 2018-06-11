@@ -2,6 +2,7 @@ package com.duncan.user;
 
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,16 @@ public class UserMapperTest {
 		criteria.andPasswordEqualTo(pwd);
 		List<UserVo> users = this.userVoDao.selectByExample(example);
 		System.out.println(users.size());
+	}
+	
+	@Test
+	public void testUpdateByPrimaryKeySelective() {
+		UserVo userVo = new UserVo();
+		userVo.setUid(1);
+		userVo.setEmail("cddhzj@163.com");
+		userVo.setScreenName("admins");
+		int i = this.userVoDao.updateByPrimaryKeySelective(userVo);
+		Assert.assertEquals(i, 1);
 	}
 	
 }

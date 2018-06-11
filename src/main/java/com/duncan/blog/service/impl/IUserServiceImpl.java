@@ -57,4 +57,15 @@ public class IUserServiceImpl implements IUserService {
 		return userVos.get(0);
 	}
 
+	@Override
+	public void updateByUid(UserVo user) {
+		if (null == user || null == user.getUid()) {
+			throw new TipException("userVo is null");
+		}
+		int i = this.userDao.updateByPrimaryKeySelective(user);
+		if (i != 1) {
+			throw new TipException("return update user is not one");
+		}
+	}
+
 }

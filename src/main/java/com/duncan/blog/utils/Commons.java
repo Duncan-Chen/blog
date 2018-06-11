@@ -152,8 +152,23 @@ public class Commons {
 		return EmojiParser.parseToUnicode(value);
 	}
 	
+	/**
+	 * 首页随机获取背景图片
+	 * @param max
+	 * @param imgSuffix
+	 * @return
+	 */
 	public static String random(int max, String imgSuffix) {
 		return MyUUID.random(1, max) + imgSuffix;
+	}
+	
+	public static String gravatar(String email) {
+		String gravatar = "https://github.com/identicons/";
+		if (StringUtils.isBlank(email)) {
+			email = "cddhzj@163.com";
+		}
+		String hash = TaleUtils.md5Encode(email.trim()).toLowerCase();
+		return gravatar + hash + ".png";
 	}
 	
 }
