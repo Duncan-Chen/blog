@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='保存文章',active='publish'">
+<header th:replace="admin/header::headerFragment(${title}, ${active})"></header>
+<link rel="stylesheet" th:href="@{/admin/plugins/tagsinput/jquery.tagsinput.css}"></link>
+<link type="stylesheet" th:href="@{/admin/plugins/select2.dist.css/select2.bootstrap.css}"></link>
+<link type="stylesheet" th:href="@{/admin/plugins/toggles/toggles.css}"></link>
+<link type="stylesheet" th:href="@{//cdn.bootcss.com/multi-select/0.9.12/css/multi-select.css}"></link>
+<link type="stylesheet" th:href="@{//cdn.bootcss.com/select2/3.4.8/select2.min.css}"></link>
+<link type="stylesheet" th:href="@{/admin/plugins/md/css/style.css}"></link>
+<body class="fixed-left">
+	<div id="wrapper">
+		<div th:replace="admin/header::header-body"></div>
+		<div class="content-page">
+			<div class="content">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<h4 class="page-title">
+								<th:block th:if="1">编辑文章</th:block>
+								<th:block th:unless="1">发布文章</th:block>
+							</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="admin/footer::footer"></div>
+</body>
+</html>

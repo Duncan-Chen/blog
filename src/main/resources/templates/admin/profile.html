@@ -71,9 +71,9 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-md-3 control-label">输入新密码</label>
+											<label class="col-md-3 control-label">确认新密码</label>
 											<div class="col-md-9">
-												<input type="password" name="repass" class="form-control" equalTo="#password" />
+												<input type="password" name="repass" class="form-control" equalTo="#password1" />
 											</div>
 										</div>
 										<div class="clearfix pull-right">
@@ -93,6 +93,7 @@
 	<script type="text/javascript" th:src="@{//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.min.js}"></script>
 	<script type="text/javascript" th:src="@{//cdn.bootcss.com/jquery-validate/1.15.1/localization/messages_zh.min.js}"></script>
 	<script type="text/javascript">
+	/* <![CDATA[ */
 		var tale = new $.tale();
 		/**
 		 * 保存个人信息
@@ -111,6 +112,24 @@
 				}
 			});
 		}
+		
+		$('#pwd-form').validate({
+			submitHandler: function(form) {
+				var param = $('#pwd-form').serialize();
+				tale.post({
+					url: '/admin/password',
+					data: param,
+					success: function(result) {
+						if (result && result.success) {
+							tale.alertOk('密码修改成功');
+						} else {
+							tale.alertError(result.msg || '密码修改失败');
+						}
+					}
+				});
+			}
+		});
+	/* ]]> */
 	</script>
 </body>
 </html>

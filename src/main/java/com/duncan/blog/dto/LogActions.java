@@ -2,7 +2,7 @@ package com.duncan.blog.dto;
 
 public enum LogActions {
 	
-	LOGIN("登录后台");
+	LOGIN("登录后台"), UP_INFO("修改个人信息"), UP_PWD("修改密码");
 	
 	private String action;
 

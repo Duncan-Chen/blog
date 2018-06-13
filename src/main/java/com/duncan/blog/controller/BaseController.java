@@ -14,4 +14,8 @@ public abstract class BaseController {
 		return TaleUtils.getLoginUser(request);
 	}
 	
+	public Integer getUid(HttpServletRequest request) {
+		return this.user(request).getUid();
+	}
+	
 }

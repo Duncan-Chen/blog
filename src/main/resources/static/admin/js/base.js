@@ -7,6 +7,16 @@ $.extend({
 	}
 });
 
+$.tale.prototype.alertOk = function(options) {
+	options = options.length ? {text:options} : (options || {});
+	options.title = options.title || '操作成功';
+	options.type = 'success';
+	options.text = options.text;
+	options.showCancelButton = false;
+	options.showCloseButton = false;
+	this.alertBox(options);
+}
+
 /**
  * 错误提示
  */
