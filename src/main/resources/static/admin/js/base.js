@@ -7,6 +7,9 @@ $.extend({
 	}
 });
 
+/**
+ * 成功提示
+ */
 $.tale.prototype.alertOk = function(options) {
 	options = options.length ? {text:options} : (options || {});
 	options.title = options.title || '操作成功';
@@ -14,6 +17,18 @@ $.tale.prototype.alertOk = function(options) {
 	options.text = options.text;
 	options.showCancelButton = false;
 	options.showCloseButton = false;
+	this.alertBox(options);
+}
+
+/**
+ * 警告提示
+ */
+$.tale.prototype.alertWarn = function(options) {
+	options = options.length ? {text: options} : (options || {});
+	options.title = options.title || '警告信息';
+	options.text = options.text;
+	options.timer = 3000;
+	options.type = 'warning';
 	this.alertBox(options);
 }
 
