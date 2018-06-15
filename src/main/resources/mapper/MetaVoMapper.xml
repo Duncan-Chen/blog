@@ -17,8 +17,20 @@
                 <if test="criteria.valid">
 					<trim prefix="(" suffix=")" prefixOverrides="and">
 					    <foreach collection="criteria.criterions" item="criterion">
-					        <if test="criterion.onValue">
+					        <if test="criterion.noValue">
 					            and ${criterion.condition}
+					        </if>
+					        <if test="criterion.singleValue">
+					            and ${criterion.condition} #{criterion.value}
+					        </if>
+					        <if test="criterion.betweenValue">
+					            and ${criterion.condition} #{criterion.value} and #{criterion.second}
+					        </if>
+					        <if test="criterion.listValue">
+					            and ${criterion.condition}
+					            <foreach collection="criterion.value" item="listValue" open="(" close=")" separator=",">
+					                #{listValue}
+					            </foreach>
 					        </if>
 					    </foreach>
 					</trim>
@@ -26,4 +38,29 @@
             </foreach>
         </where>
     </sql>
+    <sql id="Base_Column_List">
+        mid, name, slug, type, description, sort, parent 
+    </sql>
+    <select id="selectByExample" parameterType="com.duncan.blog.model.vo.MetaVoExample" resultMap="BaseResultMap">
+        select 
+        <if test="distinct">
+            distinct 
+        </if>
+        <include refid="Base_Column_List" />
+        from t_metas 
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="limit != null">
+            <if test="offset != null">
+                limit ${limit}, ${offset}
+            </if>
+            <if test="offset == null">
+                limit ${limit}
+            </if>
+        </if>
+    </select>
 </mapper>

@@ -87,7 +87,6 @@ public class MetaVoExample {
         protected List<Criterion> criterions;
 
         protected GeneratedCriteria() {
-            super();
             criterions = new ArrayList<Criterion>();
         }
 
@@ -95,11 +94,11 @@ public class MetaVoExample {
             return criterions.size() > 0;
         }
 
-        public List<Criterion> getAllCriteria() {
+        public List<Criterion> getAllCriterion() {
             return criterions;
         }
 
-        public List<Criterion> getCriteria() {
+        public List<Criterion> getCriterions() {
             return criterions;
         }
 

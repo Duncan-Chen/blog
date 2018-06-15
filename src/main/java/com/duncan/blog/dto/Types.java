@@ -2,7 +2,8 @@ package com.duncan.blog.dto;
 
 public enum Types {
 	
-	CSRF_TOKEN("csrf_token");
+	CSRF_TOKEN("csrf_token"), 
+	CATEGORY("category");
 	
 	private Types(String type) {
 		this.type = type;
