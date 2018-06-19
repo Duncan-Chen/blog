@@ -29,4 +29,10 @@ public class MetaServiceImpl implements IMetaService {
 		return null;
 	}
 
+	@Override
+	public void saveMetas(Integer cid, String names, String type) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

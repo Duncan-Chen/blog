@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duncan.blog.dao.ContentVoMapper">
+    <resultMap type="com.duncan.blog.model.vo.ContentVo" id="BaseResultMap">
+        <id column="cid" jdbcType="INTEGER" property="cid" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="slug" jdbcType="VARCHAR" property="slug" />
+        <result column="created" jdbcType="INTEGER" property="created" />
+        <result column="modified" jdbcType="INTEGER" property="modified" />
+        <result column="author_id" jdbcType="INTEGER" property="authorId" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="tags" jdbcType="VARCHAR" property="tags" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="categories" jdbcType="VARCHAR" property="categories" />
+        <result column="hits" jdbcType="INTEGER" property="hits" />
+        <result column="comments_num" jdbcType="INTEGER" property="commentsNum" />
+        <result column="allow_comment" jdbcType="BIT" property="allowComment" />
+        <result column="allow_ping" jdbcType="BIT" property="allowPing" />
+        <result column="allow_feed" jdbcType="BIT" property="allowFeed" />
+    </resultMap>
+    
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+					    <foreach collection="criteria.criteria" item="criterion">
+					        <if test="criterion.noValue">
+					            and ${criterion.condition}
+					        </if>
+					        <if test="criterion.singleValue">
+					            and ${criterion.condition} #{criterion.value}
+					        </if>
+					        <if test="criterion.betweenValue">
+					            and ${criterion.condition} #{criterion.value} and #{criterion.second}
+					        </if>
+					        <if test="criterion.listValue">
+					            and ${criterion.condition}
+					            <foreach collection="criterion.value" item="listValue" open="(" close=")" separator=",">
+					                #{listValue}
+					            </foreach>
+					        </if>
+					    </foreach>
+					</trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        cid, title, slug, created, modified, author_id, type, tags, status, 
+        categories, hits, comments_num, allow_comment, allow_ping, allow_feed
+    </sql>
+    <select id="countByExample" parameterType="com.duncan.blog.model.vo.ContentVoExample" resultType="java.lang.Long">
+        select count(1) from t_contents 
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <insert id="insert" parameterType="com.duncan.blog.model.vo.ContentVo" useGeneratedKeys="true" keyProperty="cid">
+        insert into (cid, title, slug, created, modified, author_id, type, tags, status, 
+        categories, hits, comments_num, allow_comment, allow_ping, allow_feed, content) 
+        values 
+        (#{cid, jdbcTyepe=INTEGER}, #{title, jdbcTyepe=VARCHAR}, #{slug, jdbcTyepe=VARCHAR}, 
+        #{created, jdbcTyepe=INTEGER}, #{modified, jdbcTyepe=INTEGER}, #{authorId, jdbcTyepe=INTEGER}, 
+        #{type, jdbcTyepe=VARCHAR}, #{tags, jdbcTyepe=VARCHAR}, #{status, jdbcTyepe=VARCHAR}, 
+        #{categories, jdbcTyepe=VARCHAR}, #{hits, jdbcTyepe=INTEGER}, #{commentsNum, jdbcTyepe=INTEGER}, 
+        #{allowComment, jdbcTyepe=BIT}, #{allowPing, jdbcTyepe=BIT}, #{allowFeed, jdbcTyepe=BIT}, 
+        #{content, jdbcTyepe=LONGVARCHAR} )
+    </insert>
+</mapper>

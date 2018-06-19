@@ -4,6 +4,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -124,6 +126,19 @@ public class TaleUtils {
 			hexString.append(hex);
 		}
 		return hexString.toString();
+	}
+
+	private static final Pattern SLUG_REGEX = Pattern.compile("^[a-zA-Z0-9_-]{5,100}$", Pattern.CASE_INSENSITIVE);
+	
+	public static boolean isPath(String slug) {
+		if (StringUtils.isNotBlank(slug)) {
+			if (slug.contains("/") || slug.contains(" ") || slug.contains(".")) {
+				return false;
+			}
+			Matcher matcher = SLUG_REGEX.matcher(slug);
+			return matcher.find();
+		}
+		return false;
 	}
 
 }

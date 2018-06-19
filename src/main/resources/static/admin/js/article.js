@@ -97,7 +97,7 @@ function subArticle(status) {
 	$('#articleForm #status').val(status);
 	$('#articleForm #categories').val($('#multiple-sel').val());
 	var param = $('#articleForm').serialize();
-	var url = $('#article #cid') == '' ? '/admin/article/publish' : '/admin/article/modify';
+	var url = $('#articleForm #cid').val() == '' ? '/admin/article/publish' : '/admin/article/modify';
 	tale.post({
 		url: url,
 		data: param,
@@ -114,6 +114,9 @@ function subArticle(status) {
 			} else {
 				tale.alertError(result.msg || '文章保存失败');
 			}
+		},
+		error: function(result) {
+			alert(result)
 		}
 	});
 }

@@ -79,8 +79,8 @@ $.tale.prototype.post = function(options) {
 			self.hideLoading();
 			options.success && options.success(result);
 		},
-		error: function() {
-			
+		error: function(result) {
+			options.error && options.error(result);
 		}
 	});
 };
