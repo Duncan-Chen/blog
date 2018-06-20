@@ -171,4 +171,26 @@ public class Commons {
 		return gravatar + hash + ".png";
 	}
 	
+	/**
+	 * 格式化时间戳为日期
+	 * @param unixTime
+	 * @return
+	 */
+	public static String fmtdate(Integer unixTime) {
+		return fmtdate(unixTime, "yyyy-MM-dd");
+	}
+	
+	/**
+	 * 格式化时间戳为日期
+	 * @param unixTime
+	 * @param pattern
+	 * @return
+	 */
+	public static String fmtdate(Integer unixTime, String pattern) {
+		if (null != unixTime && StringUtils.isNotBlank(pattern)) {
+			return DateKit.formatDateByUnixTime(unixTime, pattern);
+		}
+		return "";
+	}
+	
 }

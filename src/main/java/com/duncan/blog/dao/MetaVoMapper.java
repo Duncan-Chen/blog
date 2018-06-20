@@ -11,5 +11,6 @@ import com.duncan.blog.model.vo.MetaVoExample;
 public interface MetaVoMapper {
 	
 	List<MetaVo> selectByExample(MetaVoExample example);
+	int insertSelective(MetaVo metaVo);
 	
 }

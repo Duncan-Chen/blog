@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duncan.blog.dao.RelationshipVoMapper">
+    <resultMap type="com.duncan.blog.model.vo.RelationshipVoKey" id="BaseResultMap">
+        <id column="cid" jdbcType="INTEGER" property="cid" />
+        <id column="mid" jdbcType="INTEGER" property="mid" />
+    </resultMap>
+    
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+					    <foreach collection="criteria.criteria" item="criterion">
+					        <if test="criterion.noValue">
+					            and ${criterion.condition}
+					        </if>
+					        <if test="criterion.singleValue">
+					            and ${criterion.condition} #{criterion.value}
+					        </if>
+					        <if test="criterion.betweenValue">
+					            and ${criterion.condition} #{criterion.value} and #{criterion.second}
+					        </if>
+					        <if test="criterion.listValue">
+					            and ${criterion.condition}
+					            <foreach collection="criterion.value" item="listValue" open="(" close=")" separator=",">
+					                #{listValue}
+					            </foreach>
+					        </if>
+					    </foreach>
+					</trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        cid, mid 
+    </sql>
+    <select id="countByExample" parameterType="com.duncan.blog.model.vo.RelationshipVoExample" resultType="java.lang.Long">
+        select count(1) from t_relationships 
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <insert id="insert" parameterType="com.duncan.blog.model.vo.RelationshipVoKey" useGeneratedKeys="true" keyProperty="cid">
+        insert into t_relationships (cid, mid) 
+        values 
+        (#{cid, jdbcType=INTEGER}, #{mid, jdbcType=INTEGER})
+    </insert>
+</mapper>

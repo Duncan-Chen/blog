@@ -19,6 +19,10 @@
         <result column="allow_feed" jdbcType="BIT" property="allowFeed" />
     </resultMap>
     
+    <resultMap type="com.duncan.blog.model.vo.ContentVo" id="ResultMapWithBlob" extends="BaseResultMap">
+        <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    </resultMap>
+    
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -50,6 +54,9 @@
         cid, title, slug, created, modified, author_id, type, tags, status, 
         categories, hits, comments_num, allow_comment, allow_ping, allow_feed
     </sql>
+    <sql id="Blob_Column_List">
+        content
+    </sql>
     <select id="countByExample" parameterType="com.duncan.blog.model.vo.ContentVoExample" resultType="java.lang.Long">
         select count(1) from t_contents 
         <if test="_parameter != null">
@@ -57,14 +64,30 @@
         </if>
     </select>
     <insert id="insert" parameterType="com.duncan.blog.model.vo.ContentVo" useGeneratedKeys="true" keyProperty="cid">
-        insert into (cid, title, slug, created, modified, author_id, type, tags, status, 
+        insert into t_contents (cid, title, slug, created, modified, author_id, type, tags, status, 
         categories, hits, comments_num, allow_comment, allow_ping, allow_feed, content) 
         values 
-        (#{cid, jdbcTyepe=INTEGER}, #{title, jdbcTyepe=VARCHAR}, #{slug, jdbcTyepe=VARCHAR}, 
-        #{created, jdbcTyepe=INTEGER}, #{modified, jdbcTyepe=INTEGER}, #{authorId, jdbcTyepe=INTEGER}, 
-        #{type, jdbcTyepe=VARCHAR}, #{tags, jdbcTyepe=VARCHAR}, #{status, jdbcTyepe=VARCHAR}, 
-        #{categories, jdbcTyepe=VARCHAR}, #{hits, jdbcTyepe=INTEGER}, #{commentsNum, jdbcTyepe=INTEGER}, 
-        #{allowComment, jdbcTyepe=BIT}, #{allowPing, jdbcTyepe=BIT}, #{allowFeed, jdbcTyepe=BIT}, 
-        #{content, jdbcTyepe=LONGVARCHAR} )
+        (#{cid, jdbcType=INTEGER}, #{title, jdbcType=VARCHAR}, #{slug, jdbcType=VARCHAR}, 
+        #{created, jdbcType=INTEGER}, #{modified, jdbcType=INTEGER}, #{authorId, jdbcType=INTEGER}, 
+        #{type, jdbcType=VARCHAR}, #{tags, jdbcType=VARCHAR}, #{status, jdbcType=VARCHAR}, 
+        #{categories, jdbcType=VARCHAR}, #{hits, jdbcType=INTEGER}, #{commentsNum, jdbcType=INTEGER}, 
+        #{allowComment, jdbcType=BIT}, #{allowPing, jdbcType=BIT}, #{allowFeed, jdbcType=BIT}, 
+        #{content, jdbcType=LONGVARCHAR} )
     </insert>
+    <select id="selectByExampleWithBlob" parameterType="com.duncan.blog.model.vo.ContentVoExample" resultMap="ResultMapWithBlob">
+        select 
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from t_contents 
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
 </mapper>

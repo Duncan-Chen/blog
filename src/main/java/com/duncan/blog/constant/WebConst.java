@@ -16,4 +16,5 @@ public class WebConst {
 	public static final String AES_SALT = "0123456789abcdef";
 	public static final int MAX_TITLE_COUNT = 200;
 	public static final int MAX_TEXT_COUNT = 200000;
+	public static final String SUCCESS_RESULT = "SUCCESS";
 }

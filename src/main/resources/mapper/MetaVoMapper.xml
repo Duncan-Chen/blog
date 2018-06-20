@@ -63,4 +63,53 @@
             </if>
         </if>
     </select>
+    <insert id="insertSelective" parameterType="com.duncan.blog.model.vo.MetaVo" useGeneratedKeys="true" keyProperty="mid">
+        insert into t_metas
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mid != null">
+                mid, 
+            </if>
+            <if test="name != null">
+                name, 
+            </if>
+            <if test="slug != null">
+                slug, 
+            </if>
+            <if test="type != null">
+                type, 
+            </if>
+            <if test="description != null">
+                description, 
+            </if>
+            <if test="sort != null">
+                sort, 
+            </if>
+            <if test="parent != null">
+                parent, 
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="mid != null">
+                #{mid, jdbcType=INTEGER}, 
+            </if>
+            <if test="name != null">
+                #{name, jdbcType=VARCHAR}, 
+            </if>
+            <if test="slug != null">
+                #{slug, jdbcType=VARCHAR}, 
+            </if>
+            <if test="type != null">
+                #{type, jdbcType=VARCHAR}, 
+            </if>
+            <if test="description != null">
+                #{description, jdbcType=VARCHAR}, 
+            </if>
+            <if test="sort != null">
+                #{sort, jdbcType=INTEGER}, 
+            </if>
+            <if test="parent != null">
+                #{parent, jdbcType=INTEGER}, 
+            </if>
+        </trim>  
+    </insert>
 </mapper>

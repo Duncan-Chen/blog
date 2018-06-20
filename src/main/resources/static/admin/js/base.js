@@ -44,6 +44,18 @@ $.tale.prototype.alertError = function(options) {
 };
 
 /**
+ * 确认弹出框，需传入then函数
+ */
+$.tale.prototype.alertConfirm = function(options) {
+	options = options || {};
+	options.title = options.title || '确认删除吗';
+	options.text = options.text;
+	options.showCancelButton = true;
+	options.type = 'question';
+	this.alertBox(options);
+}
+
+/**
  * 公共弹窗
  */
 $.tale.prototype.alertBox = function(options) {
