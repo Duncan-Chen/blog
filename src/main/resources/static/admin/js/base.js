@@ -55,6 +55,17 @@ $.tale.prototype.alertConfirm = function(options) {
 	this.alertBox(options);
 }
 
+$.tale.prototype.alertOkAndReload = function(text) {
+	this.alertOk({
+		text: text,
+		then: function() {
+			setTimeout(function() {
+				window.location.reload();
+			}, 500);
+		}
+	});
+}
+
 /**
  * 公共弹窗
  */

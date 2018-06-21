@@ -40,4 +40,17 @@ public class RelationshipServiceImpl implements IRelationshipService {
 		this.relationshipDao.insert(relationshipVoKey);
 	}
 
+	@Override
+	public void deleteById(Integer cid, Integer mid) {
+		RelationshipVoExample example = new RelationshipVoExample();
+		Criteria criteria = example.createCriteria();
+		if (cid != null) {
+			criteria.andCidEqualTo(cid);
+		}
+		if (mid != null) {
+			criteria.andMidEqualTo(mid);
+		}
+		this.relationshipDao.deleteByExample(example);
+	}
+
 }

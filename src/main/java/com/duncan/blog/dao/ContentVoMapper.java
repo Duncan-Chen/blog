@@ -13,4 +13,8 @@ public interface ContentVoMapper {
 
 	List<ContentVo> selectByExampleWithBlob(ContentVoExample example);
 
+	ContentVo selectByPrimaryKey(Integer cid);
+
+	int deleteByPrimaryKey(Integer cid);
+
 }

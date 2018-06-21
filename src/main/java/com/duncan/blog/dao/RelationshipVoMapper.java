@@ -10,6 +10,10 @@ public interface RelationshipVoMapper {
 
 	long countByExample(RelationshipVoExample example);
 
+	
 	int insert(RelationshipVoKey relationshipVoKey);
+
+
+	int deleteByExample(RelationshipVoExample example);
 
 }

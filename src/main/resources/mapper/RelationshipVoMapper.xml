@@ -47,4 +47,10 @@
         values 
         (#{cid, jdbcType=INTEGER}, #{mid, jdbcType=INTEGER})
     </insert>
+    <delete id="deleteByExample" parameterType="com.duncan.blog.model.vo.RelationshipVoExample">
+        delete from t_relationships
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
 </mapper>

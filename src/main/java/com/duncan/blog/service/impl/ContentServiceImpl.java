@@ -6,16 +6,20 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.duncan.blog.constant.WebConst;
 import com.duncan.blog.dao.ContentVoMapper;
 import com.duncan.blog.dto.Types;
+import com.duncan.blog.exception.TipException;
 import com.duncan.blog.model.vo.ContentVo;
 import com.duncan.blog.model.vo.ContentVoExample;
 import com.duncan.blog.service.IContentService;
 import com.duncan.blog.service.IMetaService;
+import com.duncan.blog.service.IRelationshipService;
 import com.duncan.blog.utils.DateKit;
 import com.duncan.blog.utils.TaleUtils;
+import com.duncan.blog.utils.Tools;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -28,7 +32,11 @@ public class ContentServiceImpl implements IContentService {
 	@Resource
 	private IMetaService metaService;
 	
+	@Resource
+	private IRelationshipService relationshipService;
+	
 	@Override
+	@Transactional
 	public String publish(ContentVo contentVo) {
 		if (null == contentVo) {
 			return "文章对象不能为空";
@@ -84,6 +92,36 @@ public class ContentServiceImpl implements IContentService {
 		PageHelper.startPage(page, limit);
 		List<ContentVo> contentVos = this.contentDao.selectByExampleWithBlob(example);
 		return new PageInfo<>(contentVos);
+	}
+	
+	@Override
+	public ContentVo getContent(String id) {
+		if (StringUtils.isNotBlank(id)) {
+			if (Tools.isNumber(id)) {
+				ContentVo contentVo = this.contentDao.selectByPrimaryKey(Integer.valueOf(id));
+				return contentVo;
+			} else {
+				ContentVoExample example = new ContentVoExample();
+				example.createCriteria().andSlugEqualTo(id);
+				List<ContentVo> contentVos = this.contentDao.selectByExampleWithBlob(example);
+				if (contentVos.size() > 1) {
+					throw new TipException("query content by id and return is not one");
+				}
+				return contentVos.get(0);
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public String deleteByCid(int cid) {
+		ContentVo contentVo = this.getContent(cid + "");
+		if (null != contentVo) {
+			this.contentDao.deleteByPrimaryKey(cid);
+			this.relationshipService.deleteById(cid, null);
+			return WebConst.SUCCESS_RESULT;
+		}
+		return "数据为空";
 	}
 
 }
