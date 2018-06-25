@@ -37,23 +37,31 @@
 						<div class="col-md-12">
 							<form id="articleForm" role="form" novalidate="novalidate">
 								<input type="hidden" name="categories" id="categories" />
-								<input type="hidden" name="cid" id="cid" th:value="''" />
-								<input type="hidden" name="status" id="status" th:value="'publish'" />
-								<input type="hidden" name="allowComment" id="allow_comment" th:value="true" />
-								<input type="hidden" name="allowPing" id="allow_ping" th:value="true" />
-								<input type="hidden" name="allowFeed" id="allow_feed" th:value="true" />
+								<input type="hidden" name="cid" id="cid" 
+									th:value="${content != null and content.cid !=null} ? ${content.cid} : ''" />
+								<input type="hidden" name="status" id="status" 
+									th:value="${content != null and content.status != null} ? ${content.status} : 'publish'" />
+								<input type="hidden" name="allowComment" id="allow_comment" 
+									th:value="${content != null and content.allowComment} ? ${content.allowComment} : true" />
+								<input type="hidden" name="allowPing" id="allow_ping" 
+									th:value="${content != null and content.allowPing} ? ${content.allowComment} : true" />
+								<input type="hidden" name="allowFeed" id="allow_feed" 
+									th:value="${content != null and content.allowFeed} ? ${content.allowFeed} : true" />
 								<input type="hidden" name="content" id="content_editor" />
 								<div class="form-group col-md-6" style="padding: 0 10px 0 0;">
 									<input type="text" class="form-control" placeholder="请输入文章标题（必须）" 
-										name="title" required="required" aria-required="true" />
+										name="title" required="required" aria-required="true" 
+										th:value="${content != null and content.title != null} ? ${content.title} : ''" />
 								</div>
 								<div class="form-group col-md-6" style="padding: 0 0 0 10px;">
 									<input type="text" class="form-control"
-										placeholder="自定义访问路径，如my-first-article，默认为文章id" name="slug" />
+										placeholder="自定义访问路径，如my-first-article，默认为文章id" name="slug" 
+										th:value="${content != null and content.slug != null} ? ${content.slug} : ''" />
 								</div>
 								<div class="form-group col-md-6" style="padding: 0 10px 0 0;">
 									<input type="text" name="tags" id="tags" class="form-control" 
-										placeholder="请填写文章标签" />
+										placeholder="请填写文章标签" 
+										th:value="${content != null and content.tags != null} ? ${content.tags} : ''" />
 								</div>
 								<div class="form-group col-md-6">
 									<select id="multiple-sel" class="select2 form-control" multiple="multiple" 
@@ -64,7 +72,7 @@
 										<th:block th:unless="${null == categories}">
 											<th:block th:each="c : ${categories}">
 												<option th:value="${c.name}" th:text="${c.name}" 
-													th:selected="true"></option>
+													th:selected="${content != null and adminCommons.exist_cats(c, content.categories)} ? true : false"></option>
 											</th:block>
 										</th:block>
 									</select>
@@ -72,24 +80,28 @@
 								<div class="clearfix"></div>
 								<div class="form-group">
 									<textarea style="height: 450px;" autocomplete="off" id="text" name="text" 
-										class="markdown-textarea"></textarea>
+										class="markdown-textarea" 
+										th:utext="${content != null and content.content != null} ? ${content.content} : ''"></textarea>
 								</div>
 								<div class="form-group col-md-3 col-sm-4">
 									<label class="col-sm-4">开启评论</label>
 									<div class="col-sm-8">
-										<div th:class="'toggle toggle-success allow-true'" onclick="allow_comment(this);"></div>
+										<div th:class="${content != null and content.allowComment != null} ? 'toggle toggle-success allow-'+${content.allowComment} : 'toggle toggle-success allow-true'" 
+											onclick="allow_comment(this);"></div>
 									</div>
 								</div>
 								<div class="form-group col-md-3 col-sm-4">
 									<label class="col-sm-4">允许ping</label>
 									<div class="col-sm-8">
-										<div th:class="'toggle toggle-success allow-true'" onclick="allow_ping(this);"></div>
+										<div th:class="${content != null and content.allowPing != null} ? 'toggle toggle-success allow-'+${content.allowPing} : 'toggle toggle-success allow-true'" 
+											onclick="allow_ping(this);"></div>
 									</div>
 								</div>
 								<div class="form-group col-md-3 col-sm-4">
 									<label class="col-sm-4">允许订阅</label>
 									<div class="col-sm-8">
-										<div th:class="'toggle toggle-success allow-true'" onclick="allow_feed(this);"></div>
+										<div th:class="${content != null and content.allowFeed != null} ? 'toggle toggle-success allow-'+${content.allowFeed} : 'toggle toggle-success allow-true'" 
+											onclick="allow_feed(this);"></div>
 									</div>
 								</div>
 								<div class="clearfix"></div>

@@ -17,4 +17,6 @@ public interface ContentVoMapper {
 
 	int deleteByPrimaryKey(Integer cid);
 
+	int updateByPrimaryKeySelective(ContentVo contentVo);
+
 }

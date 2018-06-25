@@ -36,4 +36,11 @@ public interface IContentService {
 	 */
 	String deleteByCid(int cid);
 
+	/**
+	 * 修改文章
+	 * @param contentVo
+	 * @return
+	 */
+	String modify(ContentVo contentVo);
+
 }

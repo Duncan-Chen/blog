@@ -14,6 +14,7 @@ import com.duncan.blog.constant.WebConst;
 import com.duncan.blog.dto.Types;
 import com.duncan.blog.model.vo.UserVo;
 import com.duncan.blog.service.IUserService;
+import com.duncan.blog.utils.AdminCommons;
 import com.duncan.blog.utils.Commons;
 import com.duncan.blog.utils.IPKit;
 import com.duncan.blog.utils.MapCache;
@@ -33,6 +34,9 @@ public class BaseInterceptor implements HandlerInterceptor {
 	
 	@Resource
 	private Commons commons;
+	
+	@Resource
+	private AdminCommons adminCommons;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp,
@@ -69,6 +73,7 @@ public class BaseInterceptor implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest req, HttpServletResponse resp,
 			Object obj, ModelAndView model) throws Exception {
 		req.setAttribute("commons", commons);
+		req.setAttribute("adminCommons", adminCommons);
 	}
 
 	@Override

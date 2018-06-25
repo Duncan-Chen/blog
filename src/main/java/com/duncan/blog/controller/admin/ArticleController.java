@@ -91,7 +91,25 @@ public class ArticleController extends BaseController {
 	
 	@GetMapping(value = "/{cid}")
 	public String editArticle(@PathVariable String cid, HttpServletRequest request) {
-		
+		ContentVo contentVo = this.contentService.getContent(cid);
+		request.setAttribute("content", contentVo);
+		List<MetaVo> categories = this.metaService.getMetas(Types.CATEGORY.getType());
+		request.setAttribute("categories", categories);
+		request.setAttribute("active", "article");
 		return "admin/article_edit";
 	}
+	
+	@PostMapping("/modify")
+	@ResponseBody
+	public RestResponseBo<?> modifyArticle(ContentVo contentVo, HttpServletRequest request) {
+		Integer uid = this.getUid(request);
+		contentVo.setAuthorId(uid);
+		contentVo.setType(Types.ARTICLE.getType());
+		String result = this.contentService.modify(contentVo);
+		if (!WebConst.SUCCESS_RESULT.equals(result)) {
+			return RestResponseBo.fail(result);
+		}
+		return RestResponseBo.ok();
+	}
+	
 }

@@ -18,4 +18,8 @@ public abstract class BaseController {
 		return this.user(request).getUid();
 	}
 	
+	public String render_404() {
+		return "comm/error_404";
+	}
+	
 }

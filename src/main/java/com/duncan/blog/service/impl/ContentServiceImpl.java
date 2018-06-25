@@ -22,6 +22,7 @@ import com.duncan.blog.utils.TaleUtils;
 import com.duncan.blog.utils.Tools;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.vdurmont.emoji.EmojiParser;
 
 @Service
 public class ContentServiceImpl implements IContentService {
@@ -114,6 +115,7 @@ public class ContentServiceImpl implements IContentService {
 	}
 
 	@Override
+	@Transactional
 	public String deleteByCid(int cid) {
 		ContentVo contentVo = this.getContent(cid + "");
 		if (null != contentVo) {
@@ -122,6 +124,43 @@ public class ContentServiceImpl implements IContentService {
 			return WebConst.SUCCESS_RESULT;
 		}
 		return "数据为空";
+	}
+	
+	@Override
+	@Transactional
+	public String modify(ContentVo contentVo) {
+		if (null == contentVo) {
+			return "文章对象不能为空";
+		}
+		if (StringUtils.isBlank(contentVo.getTitle())) {
+			return "文章标题不能为空";
+		}
+		if (StringUtils.isBlank(contentVo.getContent())) {
+			return "文章内容不能为空";
+		}
+		int titleLength = contentVo.getTitle().length();
+		if (titleLength > WebConst.MAX_TITLE_COUNT) {
+			return "文章标题过长";
+		}
+		int contentLength = contentVo.getContent().length();
+		if (contentLength > WebConst.MAX_TEXT_COUNT) {
+			return "文章内容过长";
+		}
+		if (null == contentVo.getAuthorId()) {
+			return "请登录后再发布文章";
+		}
+		if (StringUtils.isBlank(contentVo.getSlug())) {
+			contentVo.setSlug(null);
+		}
+		Integer time = DateKit.getCurrentUnixTime();
+		contentVo.setModified(time);
+		Integer cid = contentVo.getCid();
+		contentVo.setContent(EmojiParser.parseToAliases(contentVo.getContent()));
+		this.contentDao.updateByPrimaryKeySelective(contentVo);
+		this.relationshipService.deleteById(cid, null);
+		this.metaService.saveMetas(cid, contentVo.getTags(), Types.TAG.getType());
+		this.metaService.saveMetas(cid, contentVo.getCategories(), Types.CATEGORY.getType());
+		return WebConst.SUCCESS_RESULT;
 	}
 
 }
