@@ -163,6 +163,7 @@ public class IndexController extends BaseController {
 		request.setAttribute("article", content);
 		request.setAttribute("is_post", true);
 		completeArticle(request, content);
+		return "";
 	}
 	
 	/**

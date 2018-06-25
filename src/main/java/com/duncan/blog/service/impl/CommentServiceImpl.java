@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.duncan.blog.dao.CommentVoMapper;
 import com.duncan.blog.model.bo.CommentBo;
 import com.duncan.blog.service.ICommentService;
 import com.github.pagehelper.PageInfo;
