@@ -163,4 +163,11 @@ public class ContentServiceImpl implements IContentService {
 		return WebConst.SUCCESS_RESULT;
 	}
 
+	@Override
+	public void updateContentByCid(ContentVo contentVo) {
+		if (null != contentVo && contentVo.getCid() != null) {
+			this.contentDao.updateByPrimaryKeySelective(contentVo);
+		}
+	}
+
 }

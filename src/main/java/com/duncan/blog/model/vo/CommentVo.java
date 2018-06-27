@@ -19,7 +19,7 @@ public class CommentVo implements Serializable {
 	// 评论所属用户id
 	private Integer authorId;
 	// 评论所属内容作者id
-	private Integer owerId;
+	private Integer ownerId;
 	// 邮件
 	private String email;
 	// 网址
@@ -77,12 +77,12 @@ public class CommentVo implements Serializable {
 		this.authorId = authorId;
 	}
 
-	public Integer getOwerId() {
-		return owerId;
+	public Integer getOwnerId() {
+		return ownerId;
 	}
 
-	public void setOwerId(Integer owerId) {
-		this.owerId = owerId;
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
 	}
 
 	public String getEmail() {

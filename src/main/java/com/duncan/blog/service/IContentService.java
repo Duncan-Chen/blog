@@ -43,4 +43,10 @@ public interface IContentService {
 	 */
 	String modify(ContentVo contentVo);
 
+	/**
+	 * 根据主键更新
+	 * @param temp
+	 */
+	void updateContentByCid(ContentVo contentVo);
+
 }

@@ -8,6 +8,7 @@ import com.duncan.blog.utils.TaleUtils;
 
 public abstract class BaseController {
 	
+	public static String THEME = "themes/default";
 	protected MapCache cache = MapCache.single();
 	
 	public UserVo user(HttpServletRequest request) {
@@ -20,6 +21,10 @@ public abstract class BaseController {
 	
 	public String render_404() {
 		return "comm/error_404";
+	}
+	
+	public String render(String viewName) {
+		return THEME + "/" + viewName;
 	}
 	
 }

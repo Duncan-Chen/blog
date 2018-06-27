@@ -16,7 +16,7 @@ public class CommentBo extends CommentVo {
 		setCreated(commentVo.getCreated());
 		setAuthor(commentVo.getAuthor());
 		setAuthorId(commentVo.getAuthorId());
-		setOwerId(commentVo.getOwerId());
+		setOwnerId(commentVo.getOwnerId());
 		setEmail(commentVo.getEmail());
 		setUrl(commentVo.getUrl());
 		setAgent(commentVo.getAgent());

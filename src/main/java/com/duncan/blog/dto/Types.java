@@ -5,7 +5,8 @@ public enum Types {
 	CSRF_TOKEN("csrf_token"), 
 	CATEGORY("category"), 
 	ARTICLE("post"), 
-	TAG("tag");
+	TAG("tag"),
+	HITS_FREQUENCY("hits:frequency");
 	
 	private Types(String type) {
 		this.type = type;
