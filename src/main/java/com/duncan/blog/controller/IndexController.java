@@ -59,7 +59,7 @@ public class IndexController extends BaseController {
 				cp = "1";
 			}
 			request.setAttribute("cp", cp);
-			PageInfo<CommentBo>commentsPaginator = 
+			PageInfo<CommentBo> commentsPaginator = 
 					this.commentService.getComments(contentVo.getCid(), Integer.parseInt(cp), 6);
 			request.setAttribute("comments", commentsPaginator);
 		}

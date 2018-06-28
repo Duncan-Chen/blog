@@ -193,4 +193,24 @@ public class Commons {
 		return "";
 	}
 	
+	public static String show_tags(String tags) throws UnsupportedEncodingException {
+		if (StringUtils.isNoneBlank(tags)) {
+			String[] arr = tags.split(",");
+			StringBuffer sbuf = new StringBuffer();
+			for (String c : arr) {
+				sbuf.append("<a href=\"/tags/" + URLEncoder.encode(c, "UTF-8") + "\">" + c + "</a>");
+			}
+			return sbuf.toString();
+		}
+		return "";
+	}
+	
+	public static String article(String value) {
+		if (StringUtils.isNotBlank(value)) {
+			value = value.replace("<!--more-->", "\r\n");
+			return TaleUtils.mdToHtml(value);
+		}
+		return "";
+	}
+	
 }

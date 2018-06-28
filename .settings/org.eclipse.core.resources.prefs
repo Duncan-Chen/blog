@@ -7,6 +7,7 @@ encoding//src/main/resources/templates/admin/footer.html=UTF-8
 encoding//src/main/resources/templates/admin/index.html=UTF-8
 encoding//src/main/resources/templates/admin/profile.html=UTF-8
 encoding//src/main/resources/templates/comm/macros.html=UTF-8
+encoding//src/main/resources/templates/themes/default/comments.html=UTF-8
 encoding//src/main/resources/templates/themes/default/post.html=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8
